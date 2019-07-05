@@ -1,0 +1,149 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Do not alter this block of commands.  If you're proficient at LaTeX, you may include additional packages, create macros, etc. immediately below this block of commands, but make sure to NOT alter the header, margin, and comment settings here. 
+\documentclass[12pt]{article}
+ \usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb,amsfonts, enumitem, fancyhdr, color, comment, graphicx, environ}
+\pagestyle{fancy}
+\setlength{\headheight}{65pt}
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{sol}
+    {\emph{Solution:}
+    }
+    {
+    \qed
+    }
+\specialcomment{com}{ \color{blue} \textbf{Comment:} }{\color{black}} %for instructor comments while grading
+\NewEnviron{probscore}{\marginpar{ \color{blue} \tiny Problem Score: \BODY \color{black} }}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{tabto}
+\usepackage{tikz}
+\usepackage{tkz-berge}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Fill in the appropriate information below
+\lhead{Chenhao WU \\ 117010285}  %replace with your name
+\rhead{Networks: Techonology, Economics and Society\\ EIE3280 Summer 2019 \\ Assignment 3} %replace XYZ with the homework course number, semester (e.g. ``Spring 2019"), and assignment number.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\begin{problem}{1}
+	\textit{Difference between Borda count, Condorcet voting and plurality voting}\\
+	Consider an election which consists of 31 voters and 3 candidates A, B, C with the profile summarized as follows:
+	\begin{table}[h!]
+		\centering
+		\begin{tabular}{|c|c|}
+			\hline
+			List                            & Voters \\ \hline
+			C \textgreater A \textgreater B & 9      \\ \hline
+			A \textgreater B \textgreater C & 8      \\ \hline
+			B \textgreater C \textgreater A & 7      \\ \hline
+			B \textgreater A \textgreater C & 5      \\ \hline
+			C \textgreater B \textgreater A & 2      \\ \hline
+			A \textgreater C \textgreater B & 0      \\ \hline
+		\end{tabular}
+	\end{table}\\
+	What is the voting result by (a) Plurality voting (b) Condorcet voting (c) Borda count?
+\end{problem}
+\begin{sol}
+	(a) In a plurality voting the candidate with $n$th largest $V_i$ will be put in the $ n $th position on the output list, where $V_i$ denotes the number of voters who have put this candidate at the first position.\\
+	In this case we can obtain a table as following, which represents the plurality voting process
+	\begin{table}[h]
+		\centering
+		\begin{tabular}{|c|c|}
+			\hline
+			Candidate & $V_i$ \\ \hline
+			B & $7+5 = 12$ \\ \hline
+			C & $9+2 = 11$ \\ \hline
+			A & $8+0 = 8$  \\ \hline
+		\end{tabular}
+	\end{table} \\
+	Hence in a plurality voting the result is B, C, and A. \\
+	(b). In a Condorcet voting we sum up the number of all the binary comparisons of these three candidates and select the candidate who wins the other two candidates most as the winner. \\
+	In this case we can obtain a table as following, which represents the Condorcet voting process
+	\begin{table}[h]
+		\centering
+		\begin{tabular}{|c|c|}
+			\hline
+			Comparison & Score \\ \hline
+			A \textgreater B & $ 9 + 8 + 0 = 17 $ \\ \hline
+			A \textgreater C & $8 + 5 + 0 = 13$ \\ \hline
+			B \textgreater A & $7 + 5 +2 = 14$ \\ \hline
+			B \textgreater C & $8 + 7 + 5 = 20$ \\ \hline
+			C \textgreater A & $9 + 7 + 2 = 18$ \\ \hline
+			C \textgreater B & $9 + 2 + 0 = 11$ \\ \hline
+		\end{tabular}
+	\end{table}\\
+	In this case we see that in comparison between A and B, A wins B with 17:14; in comparison between A and C, C wins A with 18:13; and finally in comparison between B and C, B wins C with 20:11. Since there is a cyclic among three candidates, Condorcet voting cannot draw a conclusion.\\
+	(c). In a Borda count we calculate the corresponding score for three candidates depending on their position in each voting. \\
+	In this case we can obtain a table as following, which represents the Borda voting process
+	\begin{table}[h]
+		\centering
+		\begin{tabular}{|c|c|}
+			\hline
+			Candidate & Score \\ \hline
+			B & $10\times 1 + 12\times 2 = 34$\\ \hline
+			A & $14\times1+8\times2 = 30$ \\ \hline
+			C & $7\times1+11\times2 = 29$ \\ \hline 
+		\end{tabular}
+	\end{table}\\
+	Hence in a Borda voting the result is B, A, and C.
+\end{sol}
+
+\begin{problem}{2}
+	\textit{List's list} \\
+	A three-member faculty committee must determine whether a student should be advanced to Ph.D candidacy or not by the student's performance on both the oral and written exams. The following table summarizes the evaluation result of each faculty member:\\
+	\begin{table}[h!]
+		\centering
+		\begin{tabular}{|c|c|c|}
+			\hline
+			Professor      & Written & Oral \\ \hline
+			A & Pass & Pass \\ \hline
+			B & Fail & Pass \\ \hline
+			C & Pass & Fail \\ \hline
+		\end{tabular}
+	\end{table}\\
+	(a) Suppose the student's advancement is determined by a majority vote of all the faculty members, and a professor will agree on the advancement if and only if the student passes both the oral and written exams. Will the committee agree on advancement?\\
+	(b) Suppose the student's advancement is determined by whether she passes both the oral and written exams. Whether the student passes and exam or not is determined by a majority vote of the faculty members. Will the committee agree on advancement?
+\end{problem}
+\begin{sol}
+	(a). In this case the committee will not agree on the advancement of this student. Since only Professor A agrees on the advancement, but both Professor B and C disagree on the advancement, the majority of the committee disagree on the advancement. \\
+	(b). In this case the committee will agree on the advancement of this student. For written section, both Professor A and C votes pass which implies the majority of faculty members agree on the student pass the written exam, and therefore the student passes the written exam. For the same reason, we can draw that the student also passes the oral exam, thus the student's advancement will be agreed by the faculty team.
+\end{sol}
+\vspace{4cm}
+\begin{problem}{3} \textit{A citation network and matrix multiplication}\\
+	Consider a set of eight papers with their citation relationships represented by the graph in the figure below. Each paper is a node, and directed edge from node $ i $ to node $ j $ means paper $ i $ cites paper $ j $. \\
+	(a) Write down the adjacency matrix $ A $, where the $ (i, j) $ entry is 1 if node $ i $ points to node $ j $, and 0 otherwise. \\
+	(b) Compute the matrix $ C $ defined as 
+	\begin{align*}
+		C &= A^TA
+	\end{align*}
+	and compare the values $ C_{78}$ and $ C_{75} $. In general, what is the physical interpretation of the entries $ C_{ij} $?\\
+	(c) Now compute
+	\begin{align*}
+		A^2 = AA \\
+		A^3 = A^2A
+	\end{align*}
+	Is there any special about $A^3$? In general, what do the entries in $ A^m $ where $ m=1,2,\dots $.
+\end{problem}
+\begin{sol}
+	(a) From given graph we can obtain the adjacency matrix as following
+	\begin{align*}
+		A &= \begin{pmatrix}0 & 0 & 1 & 1 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 1 & 1 & 0 & 0 & \\ 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 \\ 0 & 0 &0 & 0 & 0 & 0 & 1 & 1 \\ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 \\ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\end{pmatrix}
+	\end{align*}
+	(b) Multiply adjacency matrix with its transpose we can obtain
+	\begin{align*}
+		C = A^TA &= \begin{pmatrix}0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \\ 0 & 0 & 1 & 1 & 0 & 0 & 0 & 0 \\ 0 & 0 & 1 & 1 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 1 & 1 & 0 & 0 \\ 0 & 0 & 0 & 0 & 1 & 1 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 & 0 & 3 & 2 \\ 0 & 0 & 0 & 0 & 0 & 0 & 2 & 3\end{pmatrix}
+	\end{align*} 
+	From the result of multiplication we can see that, $ C_{78} = 2 $, which is the number of papers that refer to both paper 7 and paper 8. Also we can see that $ C_{75} = 0 $, which is the number of papers that refer to both paper 7 and paper 5. \\
+	Intuitively, $C_{ij}$ represents the number of papers that refer to both paper $ i $ and paper $ j $. \\
+	(c) Compute $ A^2 $ and $ A^3 $,
+	\begin{align*}
+		AA &= \begin{pmatrix}0 & 0 & 0 & 0 & 0 & 0 & 2 & 1 \\ 0 & 0 & 0 & 0 & 0 & 0 & 1 & 2 & \\ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\end{pmatrix}\\
+		A^2A &= \begin{pmatrix}0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \\ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\end{pmatrix}
+	\end{align*}
+	From observation we can see that $A^3 = \textbf{0}$. From the fundamental principles of matrix multiplication, the intuition of $A^m$ results in entries denoting the number of path from paper $ i $ to paper $ j $ with length $ m $.
+\end{sol}
+
+\end{document}
