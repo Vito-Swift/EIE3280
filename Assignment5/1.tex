@@ -1,0 +1,63 @@
+\documentclass[12pt,bezier]{article}
+\textwidth = 15 cm
+\textheight = 21.2 cm
+\oddsidemargin = 0 cm
+\evensidemargin = 0 cm
+\topmargin = -1 cm
+\parskip = 1.5 mm
+\parindent = 5 mm
+%
+\def\bfG{\mbox{\boldmath$G$}}
+
+\title{G1}
+\input{epsf}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{plain}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\emline#1#2#3#4#5#6{\put(#4,#5){\special{em:lineto}}}
+\def\newpic#1{}
+%
+
+\author{GraphTea}
+%
+\date{}
+
+\begin{document}
+
+\begin{figure}[h]
+%
+\def\emline#1#2#3#4#5#6{%
+%
+\put(#1,#2){\special{em:moveto}}%
+%
+\put(#4,#5){\special{em:lineto}}}
+%
+\def\newpic#1{}
+%
+%\pagestyle{empty}
+%
+%\begin{document}
+%
+\unitlength 0.7mm
+%
+\special{em:linewidth 0.4pt}
+%
+\linethickness{0.4pt}
+%
+\begin{picture}(150,150)(0,0)
+%
+%Vertices
+ \put(98.17251461988305,96.61246612466124){\circle*{2}}
+\put(85.74561403508771,75.60975609756098){\circle*{2}}
+\put(75.14619883040936,96.61246612466124){\circle*{2}}
+\put(85.59941520467837,39.83739837398374){\circle*{2}}
+%Edge Label:12
+\emline{85.74561403508771}{75.60975609756098}{1}{75.14619883040936}{96.61246612466124}{2}
+%Edge Label:10
+\emline{85.74561403508771}{75.60975609756098}{1}{98.17251461988305}{96.61246612466124}{2}
+%Edge Label:31
+\emline{85.59941520467837}{39.83739837398374}{1}{85.74561403508771}{75.60975609756098}{2}
+
+\end{picture}
+\end{figure}
+\end{document}
